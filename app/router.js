@@ -4,6 +4,6 @@ const controler= require('./controler');
 const Router = express.Router();
 
 Router.get('/', controler.index)
-      .get('/chat',controler.chat);
+      .post('/chat',controler.chat);
 
 module.exports= Router;
