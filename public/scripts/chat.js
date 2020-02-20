@@ -1,3 +1,7 @@
+var fecha= new Date();
+var hora = fecha.getHours();
+var minutos= fecha.getMinutes();
+var h= hora+':'+minutos;
 $(document).ready(function(){
     var socket = io('http://localhost:1998');
     username(socket);
@@ -5,6 +9,7 @@ $(document).ready(function(){
     newMessage(socket);
     updateMessages(socket);
 });
+;
 
 function username(socket){
     socket.emit('username',{
@@ -43,7 +48,6 @@ function newMessage(socket){
         document.querySelector('#send-msg-form').reset();
     });
 }
-
 function updateMessages(socket){
     socket.on('updateMessages',function(data){
         let html = '';
@@ -61,5 +65,12 @@ function updateMessages(socket){
             html += '</div></div>';
         }
         $('#msg-list').append(html);
+    });
+
+    socket.on('chat:timeMessage', function (data){
+
+        actions.innerHTML += `<p>
+      <strong>${data.hora} ${data.username}</strong> :${data.message}
+        </p>`
     });
 }
