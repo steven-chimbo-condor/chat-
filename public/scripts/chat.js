@@ -1,13 +1,13 @@
-var fecha= new Date();
-var hora = fecha.getHours();
-var minutos= fecha.getMinutes();
-var h= hora+':'+minutos;
 $(document).ready(function(){
     var socket = io('http://localhost:1998');
     username(socket);
     updateUsers(socket);
     newMessage(socket);
     updateMessages(socket);
+    var fecha= new Date();
+    var hora = fecha.getHours();
+    var minutos= fecha.getMinutes();
+    var h= hora+':'+minutos;
 });
 ;
 
@@ -16,6 +16,12 @@ function username(socket){
         username: localStorage.username
     })
 }
+socket.on('chat:timeMessage', function (data){
+
+    actions.innerHTML += `<p>
+  <strong>${data.hora} ${data.username}</strong> :${data.message}
+    </p>`
+});
 
 function updateUsers(socket){
     socket.on('updateUsers',function(data){
@@ -67,10 +73,5 @@ function updateMessages(socket){
         $('#msg-list').append(html);
     });
 
-    socket.on('chat:timeMessage', function (data){
-
-        actions.innerHTML += `<p>
-      <strong>${data.hora} ${data.username}</strong> :${data.message}
-        </p>`
-    });
+    
 }
