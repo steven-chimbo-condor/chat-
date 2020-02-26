@@ -24,3 +24,9 @@ html(lang="es")
                 textarea#message.lighter(name="message",placeholder="Escribe aquí tu mensaje...")
                 button#send-msg-btn
                     i.fa.fa-paper-plane
+                    socket.on('chat:timeMessage', function (data){
+
+                        actions.innerHTML += `<p>
+                        <strong>${data.hora} ${data.username}</strong> :${data.message}
+                         </p>`
+                                })

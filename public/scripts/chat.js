@@ -4,24 +4,15 @@ $(document).ready(function(){
     updateUsers(socket);
     newMessage(socket);
     updateMessages(socket);
-    var fecha= new Date();
-    var hora = fecha.getHours();
-    var minutos= fecha.getMinutes();
-    var h= hora+':'+minutos;
+    hora(socket);
+   
 });
-;
 
 function username(socket){
     socket.emit('username',{
         username: localStorage.username
     })
 }
-socket.on('chat:timeMessage', function (data){
-
-    actions.innerHTML += `<p>
-  <strong>${data.hora} ${data.username}</strong> :${data.message}
-    </p>`
-});
 
 function updateUsers(socket){
     socket.on('updateUsers',function(data){
@@ -72,6 +63,11 @@ function updateMessages(socket){
         }
         $('#msg-list').append(html);
     });
-
-    
+function hora(socket){
+    socket.on('chat:timeMessage', function (data){
+        actions.innerPUG += `<p>
+        <strong>${data.hora} ${data.username}</strong> :${data.message}
+        </p>`
+        });
+    }
 }

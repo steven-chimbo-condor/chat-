@@ -1,4 +1,8 @@
 var users = require('./users');
+var fecha= new Date();
+var hora = fecha.getHours();
+var minutos= fecha.getMinutes();
+var h= hora+':'+minutos;
 
 module.exports = function(io){
     io.on('connection',function(socket){
@@ -6,6 +10,7 @@ module.exports = function(io){
         addUser(socket);
         disconnectUser(socket);
         newMessage(socket);
+        timeMessage(socket);
     });
 }
 
